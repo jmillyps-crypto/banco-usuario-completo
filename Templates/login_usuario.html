@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <header>
+        <h1>ENTRAR</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash_messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </header>
+
+    <h2>Digite suas informações</h2>
+    <form action="/login_usu" method="post">
+
+        <label>Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label>Senha</label>
+        <input type="text" id="senha" name="senha" required>
+
+
+        <button type="submit" class="btn">Entrar</button>
+    </form>
+<a href="{{ url_for('novo_usu')}}">
+    <button type="submit" class="btn">Cadastrar</button>
+</a>
+</body>
+</html>
