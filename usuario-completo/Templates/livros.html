@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Livros</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>Biblioteca</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash_messages">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</header>
+    <h2>Lista de Livros</h2>
+<a href="{{ url_for('criar')}}">
+    <button type="submit" class="btn">Adicionar um Livro</button>
+</a>
+<a href="{{ url_for('logout')}}">
+    <button type="submit" class="btn">Sair</button>
+</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Ano de Publicação</th>
+                <th>Ação</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for livro in livros%}
+            <tr>
+                <td>{{ livro[0] }}</td>
+                <td>{{ livro[1] }}</td>
+                <td>{{ livro[2] }}</td>
+                <td>{{ livro[3] }}</td>
+                <td>
+                    <a href="{{ url_for('editar', id=livro[0]) }}">Editar</a>
+                     <form action="{{ url_for('deletar', id=livro[0]) }}" method="post" style="display: inline">
+                         <button type="submit" class="bnt">Deletar</button>
+                     </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
